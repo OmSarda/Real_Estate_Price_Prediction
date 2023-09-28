@@ -1,0 +1,96 @@
+// Code for Price Prediction using python 
+
+import pandas as pd
+import numpy as np
+from matplotlib import pyplot as plt
+%matplotib inline
+import matplotlib
+matplotlib.rcParams["figure.figsize"]=(20,10)
+df1=pd.read_csv("C:/Users/Dell/Downloads/Bengaluru_House_Data.csv")
+df1.head()
+df1.shape
+df2=df1.drop(['area_type','balcony','society','availability'],axis='columns')
+df2.isnull().sum()
+df3=df2.dropna()
+df3.shape
+df3['size'].unique()
+df3['bhk'] =df3['size'].apply(lambda x: int(x.split(' ')[0]))
+len(df3['bhk'].unique())
+len(df3[df3.bhk>20])
+df3.total_sqft.unique()
+def is_float(x):
+    try:
+        float(x)
+    except:
+        return False
+    return True
+df4=df3.copy()
+df5['price_per_square_feet']=df5['price']*100000/df5['total_sqft']
+len(df5.location.unique())
+location_stats_lessthan_10=location_stats[location_stats<10]
+len(df5.location.unique())
+df5.location=df5.location.apply(lambda x:'other' if x in location_stats_lessthan_10 else x)
+len(df5.location.unique())
+df5[df5.total_sqft/df5.bhk<=300]
+df6=df5[~(df5.total_sqft/df5.bhk<300)]
+df6.price_per_square_feet.describe()
+def remove_pps(df):
+    df_out=pd.DataFrame()
+    for key, subdf in df.groupby('location'):
+        m=np.mean(subdf.price_per_square_feet)
+        st=np.std(subdf.price_per_square_feet)
+        reduced_df = subdf[(subdf.price_per_square_feet>(m-st))& (subdf.price_per_square_feet<=(m+st))]
+        df_out=pd.concat([df_out,reduced_df],ignore_index=True)
+    return df_out
+df7=remove_pps(df6)
+df7.shape
+import matplotlib
+matplotlib.rcParams['figure.figsize']=(20,10)
+plt.hist(df7.price_per_square_feet,rwidth=0.8)
+plt.xlabel("Price Per Square Feet")
+plt.ylabel("Count")
+plt.hist(df7.bath,rwidth=0.8)
+plt.xlabel("Number Of bathRoom")
+plt.ylabel("Count")
+df7[df7.bath>df7.bhk+2]
+df9=df8.drop(['price_per_square_feet','size'],axis='columns')
+len(df9['location'].unique())
+dumies=pd.get_dummies(df9.location)
+df11=df10.drop('location',axis='columns')
+X=df11.drop('price',axis='columns')
+Y=df11.price
+from sklearn.model_selection import train_test_split
+X_train,X_test,Y_train,Y_test=train_test_split(X,Y,test_size=0.2,random_state=10)
+from sklearn.linear_model import LinearRegression
+lr_clf= LinearRegression()
+lr_clf.fit(X_train,Y_train)
+lr_clf.score(X_test,Y_test)
+from sklearn.model_selection import ShuffleSplit
+from sklearn.model_selection import cross_val_score
+cv=ShuffleSplit(n_splits=5,test_size=0.2,random_state=0)
+cross_val_score(LinearRegression(),X,Y,cv=cv)
+def predict_price(location,sqft,bath,bhk):
+    
+    
+
+    loc_index=np.where(X.columns==location)[0][0]
+    x=np.zeros(len(X.columns))
+    x[0]=sqft
+    x[1]=bath
+    x[2]=bhk
+    if loc_index>=0:
+        x[loc_index]=1
+    
+    return lr_clf.predict([x])[0]
+predict_price('5th Block Hbr Layout',1000,3,4)
+import pickle
+with open ('C:/Users/Dell/Downloads/Bengaluru_House_Data.pickle','wb') as f:
+    pickle.dump(lr_clf,f)
+import json
+columns={
+    'data_columns' : [col.lower() for col in X.columns]
+}
+with open ('columns.json','w') as f:
+    f.write(json.dumps(columns))
+
+
