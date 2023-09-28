@@ -1,6 +1,6 @@
 # Real_Estate_Price_Prediction<br>
 Predicting house prices using Linear Regression and One Hot Encoding.<br>
-We will use Dataset available on Kaggle.com.<br>
+We are using Dataset available on Kaggle.com.<br>
 DataSet of Bengaluru State  link- https://www.kaggle.com/datasets/amitabhajoy/bengaluru-house-price-data<br><br>
 
 
