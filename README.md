@@ -1,19 +1,19 @@
-# Real_Estate_Price_Prediction
-Predicting house prices using Linear Regression and One Hot Encoding. 
-We will use Dataset available on Kaggle.com.
-DataSet of Bengaluru State  link- https://www.kaggle.com/datasets/amitabhajoy/bengaluru-house-price-data
+# Real_Estate_Price_Prediction<br>
+Predicting house prices using Linear Regression and One Hot Encoding.<br>
+We will use Dataset available on Kaggle.com.<br>
+DataSet of Bengaluru State  link- https://www.kaggle.com/datasets/amitabhajoy/bengaluru-house-price-data<br><br>
 
 
-Tools and Libraries Used:
-•	Python
-•	Pandas (for data manipulation)
-•	NumPy (for numerical operations)
-•	Matplotlib (for data visualization)
-•	Scikit-learn (for machine learning)
-•	Pickle (for model serialization)
-•	JSON (for saving column names)
+Tools and Libraries Used:<br>
+•	Python<br>
+•	Pandas (for data manipulation)<br>
+•	NumPy (for numerical operations)<br>
+•	Matplotlib (for data visualization)<br>
+•	Scikit-learn (for machine learning)<br>
+•	Pickle (for model serialization)<br>
+•	JSON (for saving column names)<br><br>
 
-Tutorial- https://youtu.be/rdfbcdP75KI?si=_l6l0SaSXf64FCgh
+Tutorial- https://youtu.be/rdfbcdP75KI?si=_l6l0SaSXf64FCgh<br>
 
 
 
